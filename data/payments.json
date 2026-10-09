@@ -1,0 +1,57 @@
+[
+  {
+    "id": 1,
+    "employer_email": "john@technova.com",
+    "freelancer_id": 3,
+    "job_id": 1,
+    "amount": 16000,
+    "status": "released",
+    "created_at": "2026-09-20T10:00:00.000Z",
+    "released_at": "2026-10-01T12:00:00.000Z",
+    "dispute_reason": null
+  },
+  {
+    "id": 2,
+    "employer_email": "priya@crestlabs.ai",
+    "freelancer_id": 1,
+    "job_id": 2,
+    "amount": 12000,
+    "status": "escrow",
+    "created_at": "2026-09-25T09:30:00.000Z",
+    "released_at": null,
+    "dispute_reason": null
+  },
+  {
+    "id": 3,
+    "employer_email": "alex@northstarstudio.co",
+    "freelancer_id": 5,
+    "job_id": 3,
+    "amount": 7000,
+    "status": "disputed",
+    "created_at": "2026-09-18T08:00:00.000Z",
+    "released_at": null,
+    "dispute_reason": "Freelancer missed 2 deadlines and delivered incomplete footage. Requesting refund."
+  },
+  {
+    "id": 1791524068310,
+    "employer_email": "test@employer.com",
+    "freelancer_id": 2,
+    "job_id": 4,
+    "amount": 15000,
+    "status": "released",
+    "created_at": "2026-10-09T05:34:28.310Z",
+    "released_at": "2026-10-09T05:34:37.251Z",
+    "dispute_reason": null
+  },
+  {
+    "id": 1791524434057,
+    "employer_email": "shrey@gmail.com",
+    "freelancer_id": 1,
+    "job_id": 3,
+    "amount": 28000,
+    "status": "escrow",
+    "created_at": "2026-10-09T05:40:34.057Z",
+    "released_at": null,
+    "dispute_reason": null
+  }
+]

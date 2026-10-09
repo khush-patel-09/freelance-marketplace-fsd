@@ -1,0 +1,21 @@
+{
+  "appTitle": "FreelanceHub",
+  "tagline": "A freelance marketplace connecting clients and freelancers",
+  "version": "1.0.0",
+  "createdAt": "2026-08-20T19:57:40.722Z",
+  "stats": {
+    "totalJobs": 8,
+    "totalFreelancers": 6,
+    "totalClients": 5,
+    "totalProposals": 8
+  },
+  "features": [
+    "Browse curated freelance opportunities",
+    "Review profile portfolios, skills, and trust scores",
+    "Secure escrow payments and milestone releases",
+    "Fraud prevention with freelancer reporting and dispute resolution",
+    "Role-based authentication (Employer and Freelancer)",
+    "Track proposal submissions in a kanban board",
+    "Manage local task lists and geolocation demos"
+  ]
+}

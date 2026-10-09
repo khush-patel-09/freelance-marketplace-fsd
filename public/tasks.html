@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FreelanceHub — Tasks</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <header class="site-header" style="padding-top: 1.5rem; padding-bottom: 2rem;">
+    <nav class="app-nav">
+      <a class="brand" href="index.html">FreelanceHub</a>
+      <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="jobs.html">Jobs</a>
+        <a href="freelancers.html">Freelancers</a>
+        <a href="proposals.html">Proposals</a>
+        <a href="tasks.html" class="active">Tasks</a>
+        <a href="payment.html">Payments</a>
+      </div>
+      <div class="nav-auth"></div>
+    </nav>
+  </header>
+
+  <main class="page-shell">
+    <div class="page-card">
+      <h1>My Tasks</h1>
+      <p class="lead">Keep track of action items and follow-ups for your freelance work.</p>
+      <form id="task-form">
+        <input type="text" id="task-input" placeholder="e.g. Send proposal to TechNova" required />
+        <button type="submit">Add Task</button>
+      </form>
+      <ul id="task-list" class="task-list"></ul>
+      <button id="locate-btn" style="margin-top: 1rem;">📍 Use My Location</button>
+      <p id="location-output"></p>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <p>&copy; <span id="footer-year"></span> FreelanceHub</p>
+  </footer>
+
+  <script type="module" src="js/script.js"></script>
+</body>
+</html>

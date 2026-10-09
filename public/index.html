@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FreelanceHub — Freelance Marketplace</title>
+  <link rel="stylesheet" href="css/style.css" />
+
+  <script>
+    console.log("FreelanceHub app title:", "FreelanceHub");
+    document.addEventListener("DOMContentLoaded", () => {
+      const year = new Date().getFullYear();
+      const footerYear = document.getElementById("footer-year");
+      if (footerYear) footerYear.textContent = year;
+    });
+  </script>
+</head>
+<body>
+  <header class="site-header">
+    <nav class="app-nav">
+      <a class="brand" href="index.html">FreelanceHub</a>
+      <div class="nav-links">
+        <a href="index.html" class="active">Home</a>
+        <a href="jobs.html">Jobs</a>
+        <a href="freelancers.html">Freelancers</a>
+        <a href="proposals.html">Proposals</a>
+        <a href="tasks.html">Tasks</a>
+        <a href="payment.html">Payments</a>
+      </div>
+      <div class="nav-auth"></div>
+    </nav>
+    <h1 class="hero-title">FreelanceHub</h1>
+    <p class="hero-sub">Where great work finds great people.</p>
+    <img class="banner-img" src="images/banner.jpg" alt="FreelanceHub Marketplace Hero Banner" />
+  </header>
+
+  <main class="page-shell" style="margin-top: 2rem;">
+    <div class="page-card">
+      <h1>Build better freelance workflows</h1>
+      <p class="lead">Browse jobs, discover talent, manage proposals, and track your tasks — all secured by escrow payments and fraud protection.</p>
+      <a class="primary-btn" href="jobs.html">Explore Jobs</a>
+      <a class="secondary-btn" href="freelancers.html">View Freelancers</a>
+    </div>
+
+    <div class="feature-strip">
+      <a class="feature-card" href="jobs.html">
+        <h3>💼 Jobs</h3>
+        <p>Browse open opportunities</p>
+      </a>
+      <a class="feature-card" href="freelancers.html">
+        <h3>👤 Freelancers</h3>
+        <p>Find specialists by skill</p>
+      </a>
+      <a class="feature-card" href="proposals.html">
+        <h3>📋 Proposals</h3>
+        <p>Track and move submissions</p>
+      </a>
+      <a class="feature-card" href="tasks.html">
+        <h3>✅ Tasks</h3>
+        <p>Stay on top of follow-ups</p>
+      </a>
+      <a class="feature-card" href="payment.html">
+        <h3>💳 Payments</h3>
+        <p>Secure escrow for every hire</p>
+      </a>
+      <a class="feature-card" href="dashboard.html">
+        <h3>📊 Dashboard</h3>
+        <p>Your activity at a glance</p>
+      </a>
+      <a class="feature-card" href="signup.html">
+        <h3>🔐 Sign Up</h3>
+        <p>Create your free account</p>
+      </a>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <p>&copy; <span id="footer-year"></span> FreelanceHub. Built for modern freelance workflows.</p>
+  </footer>
+
+  <script type="module" src="js/script.js"></script>
+</body>
+</html>

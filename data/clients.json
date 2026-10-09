@@ -1,0 +1,47 @@
+[
+  {
+    "id": 1,
+    "company": "TechNova",
+    "contact": "John Doe",
+    "email": "john@technova.com",
+    "industry": "SaaS",
+    "location": "San Francisco, USA",
+    "rating": 4.8
+  },
+  {
+    "id": 2,
+    "company": "Crest Labs",
+    "contact": "Priya Nair",
+    "email": "priya@crestlabs.ai",
+    "industry": "AI & Data",
+    "location": "Bengaluru, India",
+    "rating": 4.9
+  },
+  {
+    "id": 3,
+    "company": "Northstar Studio",
+    "contact": "Alex Morgan",
+    "email": "alex@northstarstudio.co",
+    "industry": "Media & Branding",
+    "location": "London, UK",
+    "rating": 4.7
+  },
+  {
+    "id": 4,
+    "company": "Nexa Health",
+    "contact": "Sofia Ahmed",
+    "email": "sofia@nexahealth.io",
+    "industry": "Healthcare Tech",
+    "location": "Dubai, UAE",
+    "rating": 4.8
+  },
+  {
+    "id": 5,
+    "company": "Flux Commerce",
+    "contact": "Michael Lee",
+    "email": "michael@fluxcommerce.com",
+    "industry": "E-commerce",
+    "location": "Singapore",
+    "rating": 4.6
+  }
+]

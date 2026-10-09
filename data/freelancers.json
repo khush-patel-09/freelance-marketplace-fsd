@@ -1,0 +1,239 @@
+[
+  {
+    "id": 1,
+    "name": "Khush Patel",
+    "role": "ML Engineer",
+    "location": "Mumbai, India",
+    "availability": "Open to contract work",
+    "hourlyRate": 35,
+    "trustScore": 97,
+    "completedJobs": 18,
+    "flagCount": 0,
+    "skills": [
+      "Python",
+      "SQL",
+      "PyTorch",
+      "NLP",
+      "Data Analysis"
+    ],
+    "bio": "AI engineer focused on recommendation systems and predictive models for digital products.",
+    "projects": [
+      {
+        "title": "Movie Recommendation App",
+        "technology": [
+          "Deep Learning",
+          "PyTorch",
+          "NLP",
+          "Python"
+        ],
+        "description": "Built a personalized movie recommendation engine using collaborative filtering and embeddings."
+      },
+      {
+        "title": "Freelance Marketplace Analytics",
+        "technology": [
+          "Node.js",
+          "React",
+          "Tailwind CSS",
+          "MySQL"
+        ],
+        "description": "Created an analytics dashboard with insights on hiring trends and freelancer performance."
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "name": "Rahul Sharma",
+    "role": "UI/UX Designer",
+    "location": "Bengaluru, India",
+    "availability": "Available in 2 weeks",
+    "hourlyRate": 28,
+    "trustScore": 92,
+    "completedJobs": 11,
+    "flagCount": 2,
+    "skills": [
+      "Figma",
+      "Photoshop",
+      "Wireframing",
+      "UX Research"
+    ],
+    "bio": "Design systems specialist helping SaaS startups create intuitive, conversion-focused interfaces.",
+    "projects": [
+      {
+        "title": "E-commerce Dashboard Redesign",
+        "technology": [
+          "Figma",
+          "UX Research",
+          "Design Systems"
+        ],
+        "description": "Improved retention by redesigning product dashboards for an online shopping platform."
+      },
+      {
+        "title": "Mobile Banking App UX",
+        "technology": [
+          "Figma",
+          "Prototyping",
+          "User Flows"
+        ],
+        "description": "Mapped user journeys and delivered a wallet app prototype for a fintech product."
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "name": "Aanya Mehta",
+    "role": "Full Stack Developer",
+    "location": "Pune, India",
+    "availability": "Available immediately",
+    "hourlyRate": 42,
+    "trustScore": 99,
+    "completedJobs": 27,
+    "flagCount": 0,
+    "skills": [
+      "JavaScript",
+      "React",
+      "Node.js",
+      "MongoDB",
+      "Express"
+    ],
+    "bio": "Full stack engineer building high-performance web apps with strong API and database architecture skills.",
+    "projects": [
+      {
+        "title": "Inventory Management Platform",
+        "technology": [
+          "React",
+          "Node.js",
+          "MongoDB",
+          "Socket.io"
+        ],
+        "description": "Developed real-time tracking for stock movement and vendor collaboration."
+      },
+      {
+        "title": "Learning Management Portal",
+        "technology": [
+          "React",
+          "Express",
+          "PostgreSQL",
+          "JWT"
+        ],
+        "description": "Built a custom LMS with user roles, billing, and assignment tracking."
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "name": "Vikram Sethi",
+    "role": "DevOps Engineer",
+    "location": "Delhi, India",
+    "availability": "Open to long-term contracts",
+    "hourlyRate": 40,
+    "trustScore": 95,
+    "completedJobs": 14,
+    "flagCount": 0,
+    "skills": [
+      "AWS",
+      "Docker",
+      "Kubernetes",
+      "Terraform",
+      "CI/CD"
+    ],
+    "bio": "Infrastructure specialist focused on scalable deployments, monitoring and cloud cost optimization.",
+    "projects": [
+      {
+        "title": "Serverless Deployment Automation",
+        "technology": [
+          "AWS",
+          "Terraform",
+          "Docker",
+          "GitHub Actions"
+        ],
+        "description": "Automated infrastructure provisioning and deployment pipelines for a SaaS platform."
+      },
+      {
+        "title": "Kubernetes Migration",
+        "technology": [
+          "Kubernetes",
+          "Helm",
+          "Prometheus",
+          "Grafana"
+        ],
+        "description": "Managed a migration from monolith hosting to Kubernetes for a consumer app."
+      }
+    ]
+  },
+  {
+    "id": 5,
+    "name": "Neha Kapoor",
+    "role": "Video Editor",
+    "location": "Jaipur, India",
+    "availability": "Available this month",
+    "hourlyRate": 24,
+    "trustScore": 88,
+    "completedJobs": 9,
+    "flagCount": 2,
+    "skills": [
+      "Premiere Pro",
+      "After Effects",
+      "Color Grading",
+      "Motion Graphics"
+    ],
+    "bio": "Brand storyteller creating dynamic motion graphics and launch videos for digital campaigns.",
+    "projects": [
+      {
+        "title": "Startup Launch Film",
+        "technology": [
+          "Premiere Pro",
+          "After Effects",
+          "DaVinci Resolve"
+        ],
+        "description": "Produced a high-energy product launch timeline video for investor presentations."
+      },
+      {
+        "title": "Instagram Reels Campaign",
+        "technology": [
+          "After Effects",
+          "Premiere Pro",
+          "Motion Graphics"
+        ],
+        "description": "Designed 20 short-form marketing videos for a beauty brand across social channels."
+      }
+    ]
+  },
+  {
+    "id": 6,
+    "name": "Yash Verma",
+    "role": "Content Strategist",
+    "location": "Hyderabad, India",
+    "availability": "Available immediately",
+    "hourlyRate": 22,
+    "trustScore": 91,
+    "completedJobs": 13,
+    "flagCount": 0,
+    "skills": [
+      "SEO",
+      "Copywriting",
+      "Content Strategy",
+      "Research"
+    ],
+    "bio": "Writes conversion-focused content for growth-stage startups and B2B SaaS teams.",
+    "projects": [
+      {
+        "title": "B2B SaaS Blog Series",
+        "technology": [
+          "SEO",
+          "Content Planning",
+          "Editorial Strategy"
+        ],
+        "description": "Led a 12-article content program to improve organic traffic and thought leadership."
+      },
+      {
+        "title": "Landing Page Copy Refresh",
+        "technology": [
+          "Copywriting",
+          "UX Writing",
+          "A/B Testing"
+        ],
+        "description": "Shaped homepage messaging to improve signup conversion and reduce friction."
+      }
+    ]
+  }
+]

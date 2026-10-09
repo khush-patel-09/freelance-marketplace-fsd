@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FreelanceHub — Sign Up</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <header class="site-header" style="padding-top: 1.5rem; padding-bottom: 2rem;">
+    <nav class="app-nav">
+      <a class="brand" href="index.html">FreelanceHub</a>
+      <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="jobs.html">Jobs</a>
+        <a href="freelancers.html">Freelancers</a>
+        <a href="proposals.html">Proposals</a>
+        <a href="tasks.html">Tasks</a>
+        <a href="payment.html">Payments</a>
+      </div>
+      <div class="nav-auth"></div>
+    </nav>
+  </header>
+
+  <main class="page-shell">
+    <div class="auth-card">
+      <div class="auth-header">
+        <h1>Create your account</h1>
+        <p class="lead">Join FreelanceHub as an employer or freelancer.</p>
+      </div>
+
+      <form id="signup-form" novalidate>
+        <div class="form-group">
+          <label for="su-name">Full Name</label>
+          <input type="text" id="su-name" placeholder="e.g. Aanya Mehta" required />
+        </div>
+        <div class="form-group">
+          <label for="su-email">Email Address</label>
+          <input type="email" id="su-email" placeholder="you@example.com" required />
+        </div>
+        <div class="form-group">
+          <label for="su-password">Password</label>
+          <input type="password" id="su-password" placeholder="Min. 6 characters" minlength="6" required />
+        </div>
+        <div class="form-group">
+          <label for="su-role">I am signing up as a…</label>
+          <select id="su-role" required>
+            <option value="" disabled selected>Select your role</option>
+            <option value="employer">Employer (I want to hire)</option>
+            <option value="freelancer">Freelancer (I want to work)</option>
+          </select>
+        </div>
+
+        <p class="form-error" id="signup-error" style="display:none;"></p>
+
+        <button type="submit" class="auth-submit-btn">Create Account</button>
+      </form>
+
+      <p class="auth-switch">
+        Already have an account? <a href="login.html">Log in</a>
+      </p>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <p>&copy; <span id="footer-year"></span> FreelanceHub. Built for modern freelance workflows.</p>
+  </footer>
+
+  <script type="module">
+    import { register, renderAuthNav, getCurrentUser } from "./js/auth.js";
+
+    document.addEventListener("DOMContentLoaded", () => {
+      document.getElementById("footer-year").textContent = new Date().getFullYear();
+      renderAuthNav();
+
+      // If already logged in, go home
+      if (getCurrentUser()) window.location.href = "index.html";
+
+      document.getElementById("signup-form").addEventListener("submit", (e) => {
+        e.preventDefault();
+        const name     = document.getElementById("su-name").value.trim();
+        const email    = document.getElementById("su-email").value.trim();
+        const password = document.getElementById("su-password").value;
+        const role     = document.getElementById("su-role").value;
+        const errEl    = document.getElementById("signup-error");
+
+        errEl.style.display = "none";
+
+        if (!name || !email || !password || !role) {
+          errEl.textContent = "Please fill in all fields.";
+          errEl.style.display = "block";
+          return;
+        }
+
+        const result = register({ name, email, password, role });
+        if (!result.ok) {
+          errEl.textContent = result.error;
+          errEl.style.display = "block";
+          return;
+        }
+
+        window.location.href = "login.html?registered=1";
+      });
+    });
+  </script>
+</body>
+</html>

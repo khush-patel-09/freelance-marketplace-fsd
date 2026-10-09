@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FreelanceHub — Proposals</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <header class="site-header" style="padding-top: 1.5rem; padding-bottom: 2rem;">
+    <nav class="app-nav">
+      <a class="brand" href="index.html">FreelanceHub</a>
+      <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="jobs.html">Jobs</a>
+        <a href="freelancers.html">Freelancers</a>
+        <a href="proposals.html" class="active">Proposals</a>
+        <a href="tasks.html">Tasks</a>
+        <a href="payment.html">Payments</a>
+      </div>
+      <div class="nav-auth"></div>
+    </nav>
+  </header>
+
+  <main class="page-shell">
+    <div class="page-card">
+      <h1>Proposals Pipeline</h1>
+      <p class="lead">Track ongoing submissions and move requests between stages with drag and drop. <em>(Pipeline rule: Proposals in 'Submitted' must move to 'In Review' before they can be 'Accepted'.)</em></p>
+      <div id="kanban-notice" class="form-error" style="display:none; margin-top:1rem; padding:0.75rem 1rem; border-radius:10px;"></div>
+      <div class="kanban">
+        <div class="kanban-col" id="col-submitted" data-status="Submitted">
+          <h3>Submitted</h3>
+        </div>
+        <div class="kanban-col" id="col-review" data-status="In Review">
+          <h3>In Review</h3>
+        </div>
+        <div class="kanban-col" id="col-accepted" data-status="Accepted">
+          <h3>Accepted</h3>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <p>&copy; <span id="footer-year"></span> FreelanceHub</p>
+  </footer>
+
+  <script type="module" src="js/script.js"></script>
+</body>
+</html>

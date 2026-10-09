@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FreelanceHub — Payments</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <header class="site-header" style="padding-top: 1.5rem; padding-bottom: 2rem;">
+    <nav class="app-nav">
+      <a class="brand" href="index.html">FreelanceHub</a>
+      <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="jobs.html">Jobs</a>
+        <a href="freelancers.html">Freelancers</a>
+        <a href="proposals.html">Proposals</a>
+        <a href="tasks.html">Tasks</a>
+        <a href="payment.html" class="active">Payments</a>
+      </div>
+      <div class="nav-auth"></div>
+    </nav>
+  </header>
+
+  <main class="page-shell">
+    <div class="page-card">
+      <h1>💳 Escrow Payments</h1>
+      <p class="lead">Pay securely into escrow. Funds are only released to the freelancer after you confirm delivery.</p>
+
+      <!-- How it works -->
+      <div class="escrow-steps">
+        <div class="escrow-step">
+          <div class="step-icon">1</div>
+          <div>
+            <strong>Pay into Escrow</strong>
+            <p>Your payment is held securely by FreelanceHub — not sent to the freelancer yet.</p>
+          </div>
+        </div>
+        <div class="escrow-step">
+          <div class="step-icon">2</div>
+          <div>
+            <strong>Freelancer Delivers</strong>
+            <p>The freelancer completes the work and submits deliverables for your review.</p>
+          </div>
+        </div>
+        <div class="escrow-step">
+          <div class="step-icon">3</div>
+          <div>
+            <strong>Release or Dispute</strong>
+            <p>Approve delivery to release funds, or open a dispute if the work was not completed.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- New payment form (employers only) -->
+      <div id="payment-form-section">
+        <h2 style="margin-top: 2rem; margin-bottom: 1rem;">Make a Payment</h2>
+        <form id="payment-form" class="payment-form">
+          <div class="form-group">
+            <label for="pf-job">Select Job</label>
+            <select id="pf-job" required>
+              <option value="" disabled selected>Loading jobs…</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="pf-freelancer">Select Freelancer</label>
+            <select id="pf-freelancer" required>
+              <option value="" disabled selected>Loading freelancers…</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="pf-amount">Amount (₹)</label>
+            <input type="number" id="pf-amount" placeholder="e.g. 15000" min="1" required />
+          </div>
+          <p class="form-error" id="pay-error" style="display:none;"></p>
+          <p class="form-success" id="pay-success" style="display:none;"></p>
+          <button type="submit" class="auth-submit-btn" style="max-width:240px;">Pay into Escrow</button>
+        </form>
+      </div>
+
+      <!-- Existing payments -->
+      <h2 style="margin-top: 2.5rem; margin-bottom: 1rem;">Payment History</h2>
+      <div id="payments-list" class="payments-list">
+        <p class="hint">Loading payments…</p>
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <p>&copy; <span id="footer-year"></span> FreelanceHub. Built for modern freelance workflows.</p>
+  </footer>
+
+  <script type="module">
+    import { requireAuth, renderAuthNav } from "./js/auth.js";
+
+    document.addEventListener("DOMContentLoaded", async () => {
+      document.getElementById("footer-year").textContent = new Date().getFullYear();
+      renderAuthNav();
+
+      const user = requireAuth(); // must be logged in
+      if (!user) return;
+
+      // Load jobs, freelancers & payments from API
+      const [jobsRes, flRes, paymentsRes] = await Promise.all([
+        fetch("/api/jobs"),
+        fetch("/api/freelancers"),
+        fetch("/api/payments"),
+      ]);
+      const jobs        = await jobsRes.json();
+      const freelancers = await flRes.json();
+      let   payments    = await paymentsRes.json();
+
+      // Only employers see the payment form
+      if (user.role !== "employer") {
+        document.getElementById("payment-form-section").innerHTML =
+          `<div style="background:var(--bg-subtle, #f5f5f7); border-radius:12px; padding:1.25rem 1.5rem; margin-top:1.5rem;">
+            <p style="margin:0; font-weight:500;">ℹ️ <strong>Freelancer Account (${user.name})</strong></p>
+            <p class="hint" style="margin-top:0.35rem; margin-bottom:0;">Only employers can create new escrow deposits. As a freelancer, you can track incoming escrow payments, project releases, and disputes below.</p>
+          </div>`;
+      } else {
+        // Populate employer payment dropdowns
+        const jobSel   = document.getElementById("pf-job");
+        const flSel    = document.getElementById("pf-freelancer");
+        const amtInput = document.getElementById("pf-amount");
+
+        if (jobSel && flSel) {
+          jobSel.innerHTML = '<option value="" disabled>-- Select a Job --</option>';
+          flSel.innerHTML  = '<option value="" disabled>-- Select a Freelancer --</option>';
+
+          const urlParams = new URLSearchParams(window.location.search);
+          const preselectJobId = urlParams.get("job");
+          const preselectFlId  = urlParams.get("freelancer");
+
+          jobs.forEach((j) => {
+            const opt = document.createElement("option");
+            opt.value = j.id;
+            opt.textContent = `${j.title} (₹${j.budget.toLocaleString()})`;
+            if (preselectJobId && String(j.id) === String(preselectJobId)) {
+              opt.selected = true;
+              if (amtInput && !amtInput.value) {
+                amtInput.value = j.budget;
+              }
+            }
+            jobSel.appendChild(opt);
+          });
+
+          if (!preselectJobId) {
+            jobSel.options[0].selected = true;
+          }
+
+          freelancers.forEach((f) => {
+            const opt = document.createElement("option");
+            opt.value = f.id;
+            opt.textContent = `${f.name} — ${f.role}`;
+            if (preselectFlId && String(f.id) === String(preselectFlId)) {
+              opt.selected = true;
+            }
+            flSel.appendChild(opt);
+          });
+
+          if (!preselectFlId) {
+            flSel.options[0].selected = true;
+          }
+
+          jobSel.addEventListener("change", () => {
+            const selectedJob = jobs.find((j) => String(j.id) === String(jobSel.value));
+            if (selectedJob && amtInput) {
+              amtInput.value = selectedJob.budget;
+            }
+          });
+        }
+      }
+
+      // Render payments list
+      function renderPayments(list) {
+        const container = document.getElementById("payments-list");
+        if (!list.length) {
+          container.innerHTML = `<p class="hint">No payments yet.</p>`;
+          return;
+        }
+        container.innerHTML = list.map((p) => {
+          const job = jobs.find((j) => j.id === p.job_id);
+          const fl  = freelancers.find((f) => f.id === p.freelancer_id);
+          const statusClass = p.status === "released" ? "status-released"
+                            : p.status === "disputed"  ? "status-disputed"
+                            : "status-escrow";
+          const statusLabel = p.status === "released" ? "✅ Released"
+                            : p.status === "disputed"  ? "⚠️ Disputed"
+                            : "🔒 In Escrow";
+
+          const actions = p.status === "escrow" && user.role === "employer" ? `
+            <div class="payment-actions">
+              <button class="btn-release" data-id="${p.id}">✅ Release Payment</button>
+              <button class="btn-dispute" data-id="${p.id}">⚠️ Raise Dispute</button>
+            </div>` : "";
+
+          const disputeNote = p.dispute_reason
+            ? `<p class="dispute-reason"><strong>Dispute:</strong> ${p.dispute_reason}</p>` : "";
+
+          return `
+            <div class="payment-card">
+              <div class="payment-info">
+                <strong>${fl ? fl.name : "Unknown Freelancer"}</strong>
+                <span class="payment-job">${job ? job.title : "Unknown Job"}</span>
+              </div>
+              <div class="payment-meta">
+                <span class="payment-amount">₹${p.amount.toLocaleString()}</span>
+                <span class="payment-status ${statusClass}">${statusLabel}</span>
+              </div>
+              ${disputeNote}
+              ${actions}
+            </div>`;
+        }).join("");
+
+        // Attach release button handlers
+        container.querySelectorAll(".btn-release").forEach((btn) => {
+          btn.addEventListener("click", async () => {
+            if (!confirm("Release the escrowed amount to the freelancer?")) return;
+            const res = await fetch(`/api/payments/${btn.dataset.id}/release`, { method: "PATCH" });
+            const data = await res.json();
+            if (res.ok) {
+              payments = payments.map((p) => p.id == btn.dataset.id ? data : p);
+              renderPayments(payments);
+            } else {
+              alert(data.error);
+            }
+          });
+        });
+
+        // Attach dispute button handlers
+        container.querySelectorAll(".btn-dispute").forEach((btn) => {
+          btn.addEventListener("click", async () => {
+            const reason = prompt("Briefly describe the issue (required):");
+            if (!reason || !reason.trim()) return;
+            const res = await fetch(`/api/payments/${btn.dataset.id}/dispute`, {
+              method: "PATCH",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ reason }),
+            });
+            const data = await res.json();
+            if (res.ok) {
+              payments = payments.map((p) => p.id == btn.dataset.id ? data : p);
+              renderPayments(payments);
+            } else {
+              alert(data.error);
+            }
+          });
+        });
+      }
+
+      renderPayments(payments);
+
+      // Payment form submission
+      const form = document.getElementById("payment-form");
+      if (form && user.role === "employer") {
+        form.addEventListener("submit", async (e) => {
+          e.preventDefault();
+          const errEl = document.getElementById("pay-error");
+          const sucEl = document.getElementById("pay-success");
+          errEl.style.display = sucEl.style.display = "none";
+
+          const body = {
+            employer_email: user.email,
+            freelancer_id: document.getElementById("pf-freelancer").value,
+            job_id: document.getElementById("pf-job").value,
+            amount: document.getElementById("pf-amount").value,
+          };
+
+          const res = await fetch("/api/payments", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(body),
+          });
+          const data = await res.json();
+          if (!res.ok) {
+            errEl.textContent = data.error;
+            errEl.style.display = "block";
+          } else {
+            payments.push(data);
+            renderPayments(payments);
+            sucEl.textContent = `✅ ₹${Number(body.amount).toLocaleString()} placed in escrow successfully!`;
+            sucEl.style.display = "block";
+            form.reset();
+          }
+        });
+      }
+    });
+  </script>
+</body>
+</html>

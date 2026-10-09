@@ -1,0 +1,74 @@
+[
+  {
+    "id": 1,
+    "job_id": 2,
+    "freelancer_id": 1,
+    "bid_amount": 12000,
+    "status": "Submitted",
+    "timeline": "4 weeks",
+    "cover_letter": "I have 3 years of experience building ML models and can deliver a predictive churn solution with strong evaluation metrics."
+  },
+  {
+    "id": 2,
+    "job_id": 6,
+    "freelancer_id": 2,
+    "bid_amount": 9500,
+    "status": "Interviewing",
+    "timeline": "2 weeks",
+    "cover_letter": "I can lead discovery workshops and design a clean, conversion-focused dashboard using Figma and prototyping workflows."
+  },
+  {
+    "id": 3,
+    "job_id": 5,
+    "freelancer_id": 3,
+    "bid_amount": 18000,
+    "status": "Submitted",
+    "timeline": "6 weeks",
+    "cover_letter": "I build scalable web applications across the stack and can implement features quickly while maintaining quality and maintainability."
+  },
+  {
+    "id": 4,
+    "job_id": 7,
+    "freelancer_id": 4,
+    "bid_amount": 21000,
+    "status": "Shortlisted",
+    "timeline": "3 weeks",
+    "cover_letter": "I help teams set up reliable cloud infrastructure with CI/CD pipelines, observability, and automation to reduce deployment risk."
+  },
+  {
+    "id": 5,
+    "job_id": 3,
+    "freelancer_id": 5,
+    "bid_amount": 7000,
+    "status": "Submitted",
+    "timeline": "10 days",
+    "cover_letter": "I create engaging promo videos with polished editing, pacing, and motion graphics tuned for product launches and social media."
+  },
+  {
+    "id": 6,
+    "job_id": 8,
+    "freelancer_id": 6,
+    "bid_amount": 5500,
+    "status": "Submitted",
+    "timeline": "2 weeks",
+    "cover_letter": "I can craft SEO-led blog content and high-converting copy for startup landing pages and educational campaigns."
+  },
+  {
+    "id": 7,
+    "job_id": 1,
+    "freelancer_id": 3,
+    "bid_amount": 16000,
+    "status": "Accepted",
+    "timeline": "5 weeks",
+    "cover_letter": "I can design and ship a modern React application with reusable components and clean API integration based on your spec."
+  },
+  {
+    "id": 8,
+    "job_id": 4,
+    "freelancer_id": 2,
+    "bid_amount": 8800,
+    "status": "Submitted",
+    "timeline": "3 weeks",
+    "cover_letter": "I can craft a memorable visual identity and design language that matches the startup's positioning and investor pitch."
+  }
+]

@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FreelanceHub — My Dashboard</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <header class="site-header" style="padding-top: 1.5rem; padding-bottom: 2rem;">
+    <nav class="app-nav">
+      <a class="brand" href="index.html">FreelanceHub</a>
+      <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="jobs.html">Jobs</a>
+        <a href="freelancers.html">Freelancers</a>
+        <a href="proposals.html">Proposals</a>
+        <a href="tasks.html">Tasks</a>
+        <a href="payment.html">Payments</a>
+      </div>
+      <div class="nav-auth"></div>
+    </nav>
+  </header>
+
+  <main class="page-shell">
+    <div class="page-card">
+      <h1 id="dash-greeting">My Dashboard</h1>
+      <p class="lead" id="dash-role-label">Overview of your activity on FreelanceHub.</p>
+
+      <!-- ── EMPLOYER DASHBOARD ─────────────────────────────────── -->
+      <div id="employer-dash" style="display:none;">
+
+        <div class="dash-stats" id="employer-stats"></div>
+
+        <h2 style="margin-top: 2rem; margin-bottom: 1rem;">💳 My Payments</h2>
+        <div id="dash-payments" class="payments-list"></div>
+
+        <h2 style="margin-top: 2rem; margin-bottom: 1rem;">📋 My Job Listings</h2>
+        <div id="dash-jobs" class="card-grid"></div>
+
+        <div style="margin-top: 2rem;">
+          <a href="payment.html" class="primary-btn" style="text-decoration:none; display:inline-block; padding:0.75rem 1.4rem; background:var(--accent); color:#fff; border-radius:12px; font-weight:600;">
+            + New Escrow Payment
+          </a>
+        </div>
+      </div>
+
+      <!-- ── FREELANCER DASHBOARD ───────────────────────────────── -->
+      <div id="freelancer-dash" style="display:none;">
+
+        <div class="dash-stats" id="freelancer-stats"></div>
+
+        <h2 style="margin-top: 2rem; margin-bottom: 1rem;">📨 My Proposals</h2>
+        <div id="dash-proposals" class="payments-list"></div>
+
+        <h2 style="margin-top: 2rem; margin-bottom: 1rem;">💰 Earnings</h2>
+        <div id="dash-earnings" class="payments-list"></div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <p>&copy; <span id="footer-year"></span> FreelanceHub. Built for modern freelance workflows.</p>
+  </footer>
+
+  <script type="module">
+    import { requireAuth, renderAuthNav } from "./js/auth.js";
+
+    document.addEventListener("DOMContentLoaded", async () => {
+      document.getElementById("footer-year").textContent = new Date().getFullYear();
+      renderAuthNav();
+
+      const user = requireAuth();
+      if (!user) return;
+
+      document.getElementById("dash-greeting").textContent = `Welcome, ${user.name} 👋`;
+      document.getElementById("dash-role-label").textContent =
+        user.role === "employer"
+          ? "Manage your hires, payments, and job listings."
+          : "Track your proposals and earnings.";
+
+      const [jobsRes, flRes, proposalsRes, paymentsRes] = await Promise.all([
+        fetch("/api/jobs"),
+        fetch("/api/freelancers"),
+        fetch("/api/proposals"),
+        fetch("/api/payments"),
+      ]);
+      const jobs        = await jobsRes.json();
+      const freelancers = await flRes.json();
+      const proposals   = await proposalsRes.json();
+      const payments    = await paymentsRes.json();
+
+      // ── Employer view ──────────────────────────────────────────
+      if (user.role === "employer") {
+        document.getElementById("employer-dash").style.display = "block";
+
+        // Filter payments by this employer
+        const myPayments = payments.filter((p) => p.employer_email === user.email);
+
+        // Stats
+        const escrowTotal    = myPayments.filter((p) => p.status === "escrow").reduce((a, p) => a + p.amount, 0);
+        const releasedTotal  = myPayments.filter((p) => p.status === "released").reduce((a, p) => a + p.amount, 0);
+        const disputedCount  = myPayments.filter((p) => p.status === "disputed").length;
+
+        document.getElementById("employer-stats").innerHTML = `
+          <div class="stat-card"><span class="stat-val">₹${escrowTotal.toLocaleString()}</span><span class="stat-label">In Escrow</span></div>
+          <div class="stat-card"><span class="stat-val">₹${releasedTotal.toLocaleString()}</span><span class="stat-label">Released</span></div>
+          <div class="stat-card"><span class="stat-val">${disputedCount}</span><span class="stat-label">Disputes</span></div>
+          <div class="stat-card"><span class="stat-val">${myPayments.length}</span><span class="stat-label">Total Payments</span></div>
+        `;
+
+        // Payments list
+        const payContainer = document.getElementById("dash-payments");
+        if (!myPayments.length) {
+          payContainer.innerHTML = `<p class="hint">No payments yet. <a href="payment.html">Make your first escrow payment →</a></p>`;
+        } else {
+          payContainer.innerHTML = myPayments.map((p) => {
+            const fl  = freelancers.find((f) => f.id === p.freelancer_id);
+            const job = jobs.find((j) => j.id === p.job_id);
+            const statusClass = p.status === "released" ? "status-released" : p.status === "disputed" ? "status-disputed" : "status-escrow";
+            const statusLabel = p.status === "released" ? "✅ Released" : p.status === "disputed" ? "⚠️ Disputed" : "🔒 In Escrow";
+            return `
+              <div class="payment-card">
+                <div class="payment-info">
+                  <strong>${fl ? fl.name : "Unknown"}</strong>
+                  <span class="payment-job">${job ? job.title : "Unknown Job"}</span>
+                </div>
+                <div class="payment-meta">
+                  <span class="payment-amount">₹${p.amount.toLocaleString()}</span>
+                  <span class="payment-status ${statusClass}">${statusLabel}</span>
+                </div>
+                ${p.dispute_reason ? `<p class="dispute-reason"><strong>Dispute:</strong> ${p.dispute_reason}</p>` : ""}
+              </div>`;
+          }).join("");
+        }
+
+        // Jobs list (all jobs shown as employer "owns" them for demo)
+        document.getElementById("dash-jobs").innerHTML = jobs.slice(0, 4).map((j) => `
+          <div class="card">
+            <h3>${j.title}</h3>
+            <p>Budget: ₹${j.budget.toLocaleString()} · ${j.location}</p>
+          </div>`).join("");
+      }
+
+      // ── Freelancer view ────────────────────────────────────────
+      if (user.role === "freelancer") {
+        document.getElementById("freelancer-dash").style.display = "block";
+
+        // For demo, show all proposals (freelancer would normally see only their own)
+        const accepted  = proposals.filter((p) => p.status === "Accepted").length;
+        const submitted = proposals.filter((p) => p.status === "Submitted").length;
+        const myPayments = payments.filter((p) => p.status === "released");
+        const totalEarned = myPayments.reduce((a, p) => a + p.amount, 0);
+
+        document.getElementById("freelancer-stats").innerHTML = `
+          <div class="stat-card"><span class="stat-val">${submitted}</span><span class="stat-label">Active Proposals</span></div>
+          <div class="stat-card"><span class="stat-val">${accepted}</span><span class="stat-label">Accepted</span></div>
+          <div class="stat-card"><span class="stat-val">₹${totalEarned.toLocaleString()}</span><span class="stat-label">Total Earned</span></div>
+        `;
+
+        // Proposals
+        document.getElementById("dash-proposals").innerHTML = proposals.map((p) => {
+          const job = jobs.find((j) => j.id === p.job_id);
+          const statusClass = p.status === "Accepted" ? "status-released" : "status-escrow";
+          return `
+            <div class="payment-card">
+              <div class="payment-info">
+                <strong>${job ? job.title : "Unknown Job"}</strong>
+                <span class="payment-job">Timeline: ${p.timeline}</span>
+              </div>
+              <div class="payment-meta">
+                <span class="payment-amount">₹${p.bid_amount.toLocaleString()}</span>
+                <span class="payment-status ${statusClass}">${p.status}</span>
+              </div>
+            </div>`;
+        }).join("");
+
+        // Earnings
+        document.getElementById("dash-earnings").innerHTML = myPayments.length
+          ? myPayments.map((p) => {
+              const job = jobs.find((j) => j.id === p.job_id);
+              return `
+                <div class="payment-card">
+                  <div class="payment-info">
+                    <strong>${job ? job.title : "Project"}</strong>
+                    <span class="payment-job">Released on ${new Date(p.released_at).toLocaleDateString()}</span>
+                  </div>
+                  <div class="payment-meta">
+                    <span class="payment-amount">₹${p.amount.toLocaleString()}</span>
+                    <span class="payment-status status-released">✅ Paid</span>
+                  </div>
+                </div>`;
+            }).join("")
+          : `<p class="hint">No released earnings yet.</p>`;
+      }
+    });
+  </script>
+</body>
+</html>

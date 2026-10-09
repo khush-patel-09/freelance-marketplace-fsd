@@ -1,0 +1,90 @@
+[
+  {
+    "id": 1,
+    "title": "Senior React Developer",
+    "category": "Web Development",
+    "budget": 22000,
+    "location": "Remote",
+    "jobType": "Full-time",
+    "skills": ["React", "TypeScript", "Node.js", "REST APIs"],
+    "description": "Build a responsive dashboard for an internal analytics platform and collaborate with backend engineers on API design.",
+    "postedAt": "2026-09-15T09:30:00.000Z"
+  },
+  {
+    "id": 2,
+    "title": "Machine Learning Engineer",
+    "category": "AI & Data",
+    "budget": 35000,
+    "location": "Hybrid",
+    "jobType": "Contract",
+    "skills": ["Python", "Machine Learning", "TensorFlow", "SQL"],
+    "description": "Develop predictive models for customer churn and build a recommendation engine for a SaaS product.",
+    "postedAt": "2026-09-10T14:15:00.000Z"
+  },
+  {
+    "id": 3,
+    "title": "Video Editor for Product Launch",
+    "category": "Marketing",
+    "budget": 28000,
+    "location": "Remote",
+    "jobType": "Project-based",
+    "skills": ["Premiere Pro", "After Effects", "Motion Graphics", "Storyboarding"],
+    "description": "Edit a marketing video package for a global product launch, including teaser, product demo, and short-form social ads.",
+    "postedAt": "2026-09-08T11:00:00.000Z"
+  },
+  {
+    "id": 4,
+    "title": "Brand Identity Designer",
+    "category": "Design",
+    "budget": 18000,
+    "location": "Remote",
+    "jobType": "Freelance",
+    "skills": ["Logo Design", "Brand Strategy", "Illustrator", "Figma"],
+    "description": "Create a complete brand identity kit for a startup pitching to investors and building a new consumer app.",
+    "postedAt": "2026-09-05T16:45:00.000Z"
+  },
+  {
+    "id": 5,
+    "title": "Full Stack Developer",
+    "category": "Software Development",
+    "budget": 42000,
+    "location": "On-site",
+    "jobType": "Full-time",
+    "skills": ["JavaScript", "Express", "MongoDB", "React"],
+    "description": "Own feature delivery across frontend and backend for a health-tech product with a strong focus on shipping quality.",
+    "postedAt": "2026-09-12T08:10:00.000Z"
+  },
+  {
+    "id": 6,
+    "title": "UI/UX Designer",
+    "category": "Design",
+    "budget": 26000,
+    "location": "Remote",
+    "jobType": "Contract",
+    "skills": ["Figma", "UX Research", "Wireframing", "Prototyping"],
+    "description": "Design a user-centric dashboard for a B2B SaaS offering with a modern mobile-first user experience.",
+    "postedAt": "2026-09-11T12:20:00.000Z"
+  },
+  {
+    "id": 7,
+    "title": "DevOps Engineer",
+    "category": "Infrastructure",
+    "budget": 39000,
+    "location": "Hybrid",
+    "jobType": "Full-time",
+    "skills": ["AWS", "Docker", "CI/CD", "Linux"],
+    "description": "Set up cloud automation and deployment pipelines for a growing fintech platform with high reliability standards.",
+    "postedAt": "2026-09-07T18:00:00.000Z"
+  },
+  {
+    "id": 8,
+    "title": "Content Writer",
+    "category": "Marketing",
+    "budget": 16000,
+    "location": "Remote",
+    "jobType": "Part-time",
+    "skills": ["SEO", "Copywriting", "Content Strategy", "Research"],
+    "description": "Create thought leadership articles and landing-page copy for a startup scaling its content marketing operations.",
+    "postedAt": "2026-09-04T10:00:00.000Z"
+  }
+]
